@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from functools import wraps
+import hashlib
+import json
 
 app = Flask(__name__)
 
@@ -32,6 +34,27 @@ def require_auth(f):
     return decorated
 
 
+def generate_etag(data):
+    json_data = json.dumps(data, sort_keys=True)
+    return hashlib.md5(json_data.encode()).hexdigest()
+
+
+def make_cache_response(data, max_age=60):
+    etag = generate_etag(data)
+    client_etag = request.headers.get("If-None-Match")
+
+    if client_etag == etag:
+        response = make_response("", 304)
+        response.headers["ETag"] = etag
+        response.headers["Cache-Control"] = f"private, max-age={max_age}"
+        return response
+
+    response = make_response(jsonify(data), 200)
+    response.headers["ETag"] = etag
+    response.headers["Cache-Control"] = f"private, max-age={max_age}"
+    return response
+
+
 @app.route("/")
 def home():
     return jsonify({"message": "User API server is running"})
@@ -40,7 +63,7 @@ def home():
 @app.route("/users", methods=["GET"], strict_slashes=False)
 @require_auth
 def get_users():
-    return jsonify(users)
+    return make_cache_response(users, max_age=60)
 
 
 @app.route("/users/<int:user_id>", methods=["GET"])
@@ -48,7 +71,7 @@ def get_users():
 def get_user(user_id):
     for user in users:
         if user["id"] == user_id:
-            return jsonify(user)
+            return make_cache_response(user, max_age=30)
     return jsonify({"error": "User not found"}), 404
 
 
