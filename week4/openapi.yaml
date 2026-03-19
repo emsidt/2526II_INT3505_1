@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: Book Management API
+  version: 1.0.0
+  description: API quan ly sach don gian bang Flask
+
+servers:
+  - url: http://127.0.0.1:5000
+    description: Local server
+
+tags:
+  - name: Books
+    description: Quan ly sach
+
+paths:
+  /books:
+    get:
+      tags: [Books]
+      summary: Lay tat ca sach
+      responses:
+        '200':
+          description: danh sach sach
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Book'
+
+    post:
+      tags: [Books]
+      summary: tao sach moi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+              example:
+                title: Lap trinh Flask
+                author: Duong
+                published_year: 2026
+      responses:
+        '201':
+          description: tao thanh cong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: du lieu khong hop le
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags: [Books]
+      summary: Cập nhật sách
+      parameters:
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+            example:
+              title: Lập trình Flask nâng cao
+              author: Hùng
+              published_year: 2026
+      responses:
+        '200':
+          description: Cập nhật thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Dữ liệu không hợp lệ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Không tìm thấy sách
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags: [Books]
+      summary: Xóa sách
+      parameters:
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200':
+          description: Xóa thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book deleted successfully
+        '404':
+          description: Không tìm thấy sách
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  parameters:
+    BookId:
+      name: book_id
+      in: path
+      required: true
+      description: ID của sách
+      schema:
+        type: integer
+        example: 1
+
+  schemas:
+    Book:
+      type: object
+      required:
+        - id
+        - title
+        - author
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Lập trình REST
+        author:
+          type: string
+          example: Hùng
+        published_year:
+          type: integer
+          example: 2024
+
+    BookInput:
+      type: object
+      required:
+        - title
+        - author
+      properties:
+        title:
+          type: string
+          example: Thiết kế API
+        author:
+          type: string
+          example: An
+        published_year:
+          type: integer
+          example: 2025
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Book not found
