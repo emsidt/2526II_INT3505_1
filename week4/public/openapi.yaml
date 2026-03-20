@@ -5,11 +5,7 @@ info:
   description: API quan ly sach don gian bang Flask
 
 servers:
-  - url: http://127.0.0.1:5000
-    description: Local server
-  - url: http://localhost:5000
-    description: Local server
-
+  - url: /
 tags:
   - name: Books
     description: Quan ly sach
