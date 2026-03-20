@@ -1,0 +1,90 @@
+
+---
+
+### `openapi-comparison/API Blueprint/api.apib`
+
+```apib
+FORMAT: 1A
+HOST: http://localhost:5000
+
+# Library Management API
+
+A simple API for managing books in a library.
+
+# Group Books
+
+## Books Collection [/books]
+
+### Get all books [GET]
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "title": "Clean Code",
+            "author": "Robert C. Martin",
+            "published_year": 2008
+          }
+        ]
+
+### Create a new book [POST]
+
++ Request (application/json)
+
+        {
+          "title": "Domain-Driven Design",
+          "author": "Eric Evans",
+          "published_year": 2003
+        }
+
++ Response 201 (application/json)
+
+        {
+          "id": 2,
+          "title": "Domain-Driven Design",
+          "author": "Eric Evans",
+          "published_year": 2003
+        }
+
+## Book [/books/{bookId}]
+
++ Parameters
+    + bookId: 1 (number, required)
+
+### Get a book by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+          "id": 1,
+          "title": "Clean Code",
+          "author": "Robert C. Martin",
+          "published_year": 2008
+        }
+
++ Response 404
+
+### Update a book [PUT]
+
++ Request (application/json)
+
+        {
+          "title": "Clean Architecture",
+          "author": "Robert C. Martin",
+          "published_year": 2017
+        }
+
++ Response 200 (application/json)
+
+        {
+          "id": 1,
+          "title": "Clean Architecture",
+          "author": "Robert C. Martin",
+          "published_year": 2017
+        }
+
+### Delete a book [DELETE]
+
++ Response 200
++ Response 404

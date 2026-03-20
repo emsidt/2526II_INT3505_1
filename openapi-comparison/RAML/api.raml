@@ -1,0 +1,79 @@
+
+---
+
+### `openapi-comparison/RAML/api.raml`
+
+```raml
+#%RAML 1.0
+title: Library Management API
+version: v1
+baseUri: http://localhost:5000
+
+types:
+  Book:
+    type: object
+    properties:
+      id: integer
+      title: string
+      author: string
+      published_year: integer
+
+  BookInput:
+    type: object
+    properties:
+      title: string
+      author: string
+      published_year: integer
+
+/books:
+  get:
+    description: Get all books
+    responses:
+      200:
+        body:
+          application/json:
+            type: Book[]
+
+  post:
+    description: Create a new book
+    body:
+      application/json:
+        type: BookInput
+    responses:
+      201:
+        body:
+          application/json:
+            type: Book
+
+/books/{bookId}:
+  uriParameters:
+    bookId:
+      type: integer
+  get:
+    description: Get a book by ID
+    responses:
+      200:
+        body:
+          application/json:
+            type: Book
+      404:
+        description: Book not found
+
+  put:
+    description: Update a book
+    body:
+      application/json:
+        type: BookInput
+    responses:
+      200:
+        body:
+          application/json:
+            type: Book
+
+  delete:
+    description: Delete a book
+    responses:
+      200:
+        description: Book deleted
+      404:
+        description: Book not found
