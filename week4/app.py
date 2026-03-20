@@ -1,7 +1,4 @@
-from flask import Flask, jsonify, request, render_template, send_from_directory
-from numba.typed.dictobject import new_dict
-from pandas.core.internals.blocks import new_block
-
+from flask import Flask, jsonify, request, render_template
 app = Flask(__name__)
 
 books = [
@@ -25,10 +22,6 @@ def home():
 @app.route("/docs")
 def swagger_ui():
     return render_template("swagger.html")
-
-@app.route("/openapi.yaml")
-def openapi_yaml():
-    return send_from_directory(".", "public/openapi.yaml")
 
 @app.route("/books", methods=["GET"])
 def get_books():
