@@ -28,7 +28,7 @@ def swagger_ui():
 
 @app.route("/openapi.yaml")
 def openapi_yaml():
-    return send_from_directory(".", "openapi.yaml")
+    return send_from_directory(".", "public/openapi.yaml")
 
 @app.route("/books", methods=["GET"])
 def get_books():
