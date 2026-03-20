@@ -19,8 +19,8 @@ def find_book(book_id):
 @app.route("/")
 def home():
     return jsonify({
-        "message": "Book API is running",
-        "docs": "http://localhost:5000/docs"
+        "message": "Book API is running on Vercel",
+        "docs": "/docs"
     })
 @app.route("/docs")
 def swagger_ui():
