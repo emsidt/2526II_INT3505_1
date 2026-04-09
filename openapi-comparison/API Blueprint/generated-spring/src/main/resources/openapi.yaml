@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  description: A simple API for managing books in a library.
+  title: Library Management API
+  version: 1.0.0
+servers:
+- url: http://localhost:5000
+tags:
+- name: Books
+paths:
+  /books:
+    get:
+      description: ""
+      operationId: Get all books
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - id: 1
+                title: Clean Code
+                author: Robert C. Martin
+                published_year: 2008
+              schema:
+                items:
+                  $ref: "#/components/schemas/Get_all_books_200_response_inner"
+                type: array
+          description: OK
+      summary: Get all books
+      tags:
+      - Books
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Books
+    post:
+      description: ""
+      operationId: Create a new book
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            example:
+              title: Domain-Driven Design
+              author: Eric Evans
+              published_year: 2003
+            schema:
+              $ref: "#/components/schemas/Create_a_new_book_request"
+      responses:
+        "201":
+          content:
+            application/json:
+              example:
+                id: 2
+                title: Domain-Driven Design
+                author: Eric Evans
+                published_year: 2003
+              schema:
+                $ref: "#/components/schemas/Get_all_books_200_response_inner"
+          description: Created
+      summary: Create a new book
+      tags:
+      - Books
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Books
+  /books/{bookId}:
+    delete:
+      description: ""
+      operationId: Delete a book
+      parameters:
+      - description: ""
+        example: "1"
+        explode: false
+        in: path
+        name: bookId
+        required: true
+        schema:
+          type: number
+        style: simple
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "404":
+          content: {}
+          description: Not Found
+      summary: Delete a book
+      tags:
+      - Books
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Books
+    get:
+      description: ""
+      operationId: Get a book by ID
+      parameters:
+      - description: ""
+        example: "1"
+        explode: false
+        in: path
+        name: bookId
+        required: true
+        schema:
+          type: number
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: 1
+                title: Clean Code
+                author: Robert C. Martin
+                published_year: 2008
+              schema:
+                $ref: "#/components/schemas/Get_all_books_200_response_inner"
+          description: OK
+        "404":
+          content: {}
+          description: Not Found
+      summary: Get a book by ID
+      tags:
+      - Books
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Books
+    put:
+      description: ""
+      operationId: Update a book
+      parameters:
+      - description: ""
+        example: "1"
+        explode: false
+        in: path
+        name: bookId
+        required: true
+        schema:
+          type: number
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              title: Clean Architecture
+              author: Robert C. Martin
+              published_year: 2017
+            schema:
+              $ref: "#/components/schemas/Create_a_new_book_request"
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: 1
+                title: Clean Architecture
+                author: Robert C. Martin
+                published_year: 2017
+              schema:
+                $ref: "#/components/schemas/Get_all_books_200_response_inner"
+          description: OK
+      summary: Update a book
+      tags:
+      - Books
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Books
+components:
+  schemas:
+    Get_all_books_200_response_inner:
+      example:
+        published_year: 6.027456183070403
+        author: author
+        id: 0.8008281904610115
+        title: title
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        author:
+          type: string
+        published_year:
+          type: number
+      type: object
+    Create_a_new_book_request:
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        published_year:
+          type: number
+      type: object

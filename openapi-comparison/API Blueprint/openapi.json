@@ -1,0 +1,309 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Library Management API",
+        "version": "1.0.0",
+        "description": "A simple API for managing books in a library."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000"
+        }
+    ],
+    "paths": {
+        "/books": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "number"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "author": {
+                                                "type": "string"
+                                            },
+                                            "published_year": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "title": "Clean Code",
+                                        "author": "Robert C. Martin",
+                                        "published_year": 2008
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "summary": "Get all books",
+                "operationId": "Get all books",
+                "description": "",
+                "tags": [
+                    "Books"
+                ],
+                "parameters": []
+            },
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "author": {
+                                            "type": "string"
+                                        },
+                                        "published_year": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "id": 2,
+                                    "title": "Domain-Driven Design",
+                                    "author": "Eric Evans",
+                                    "published_year": 2003
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new book",
+                "operationId": "Create a new book",
+                "description": "",
+                "tags": [
+                    "Books"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "title": "Domain-Driven Design",
+                                "author": "Eric Evans",
+                                "published_year": 2003
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "author": {
+                                        "type": "string"
+                                    },
+                                    "published_year": {
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/{bookId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "author": {
+                                            "type": "string"
+                                        },
+                                        "published_year": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "id": 1,
+                                    "title": "Clean Code",
+                                    "author": "Robert C. Martin",
+                                    "published_year": 2008
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Get a book by ID",
+                "operationId": "Get a book by ID",
+                "description": "",
+                "tags": [
+                    "Books"
+                ],
+                "parameters": [
+                    {
+                        "name": "bookId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "author": {
+                                            "type": "string"
+                                        },
+                                        "published_year": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "id": 1,
+                                    "title": "Clean Architecture",
+                                    "author": "Robert C. Martin",
+                                    "published_year": 2017
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update a book",
+                "operationId": "Update a book",
+                "description": "",
+                "tags": [
+                    "Books"
+                ],
+                "parameters": [
+                    {
+                        "name": "bookId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "title": "Clean Architecture",
+                                "author": "Robert C. Martin",
+                                "published_year": 2017
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "author": {
+                                        "type": "string"
+                                    },
+                                    "published_year": {
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Delete a book",
+                "operationId": "Delete a book",
+                "description": "",
+                "tags": [
+                    "Books"
+                ],
+                "parameters": [
+                    {
+                        "name": "bookId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    },
+    "tags": [
+        {
+            "name": "Books"
+        }
+    ]
+}

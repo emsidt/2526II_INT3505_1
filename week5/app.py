@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
-from week5.page_based import paginate_page_based
-from week5.offset_limit import paginate_offset_limit
-from week5.cursor import paginate_cursor
+from page_based import paginate_page_based
+from offset_limit import paginate_offset_limit
+from cursor import paginate_cursor
 
 app = Flask(__name__)
 

@@ -16,7 +16,6 @@ const users = [
 ];
 
 let refreshTokens = [];
-
 function createAccessToken(user) {
   return jwt.sign(
     { id: user.id, username: user.username, role: user.role },

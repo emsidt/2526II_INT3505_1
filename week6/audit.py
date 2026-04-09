@@ -25,4 +25,7 @@ def audit_file(filename):
 
     print("=== KẾT THÚC ===")
 
-audit_file("server_secure.js")
+base_dir = Path(__file__).resolve().parent
+js_file = base_dir / "server_secure.js"
+
+audit_file(js_file)
