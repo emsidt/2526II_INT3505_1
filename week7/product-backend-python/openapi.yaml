@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Product API
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/api
+paths:
+  /products:
+    get:
+      responses:
+        "200":
+          description: Product list
+      summary: Get all products
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductInput"
+        required: true
+      responses:
+        "201":
+          description: Product created
+      summary: Create product
+  /product/{id}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Product deleted
+        "404":
+          description: Product not found
+      summary: delete product
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Product found
+        "404":
+          description: Product not found
+      summary: Get product by id
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductInput"
+        required: true
+      responses:
+        "200":
+          description: Product updated
+        "404":
+          description: Product not found
+      summary: Update product
+components:
+  schemas:
+    ProductInput:
+      example:
+        price: 0.8008281904610115
+        name: name
+        description: description
+        category: category
+        stock: 6
+      properties:
+        name:
+          title: name
+          type: string
+        price:
+          title: price
+          type: number
+        description:
+          title: description
+          type: string
+        category:
+          title: category
+          type: string
+        stock:
+          title: stock
+          type: integer
+      required:
+      - name
+      - price
+      title: ProductInput
+      type: object
