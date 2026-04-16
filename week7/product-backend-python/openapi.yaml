@@ -22,7 +22,7 @@ paths:
         "201":
           description: Product created
       summary: Create product
-  /product/{id}:
+  /products/{id}:
     delete:
       parameters:
       - explode: false

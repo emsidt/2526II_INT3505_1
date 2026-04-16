@@ -25,7 +25,7 @@ paths:
         '201':
           description: Product created
 
-  /product/{id}:
+  /products/{id}:
     get:
       summary: Get product by id
       parameters:
