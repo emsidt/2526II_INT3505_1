@@ -1,0 +1,1 @@
+npx newman run postman_collection.json -r "cli,htmlextra" --reporter-htmlextra-export test_report.html
