@@ -4,13 +4,9 @@ app = Flask(__name__)
 
 @app.route('/api/payments', methods=['POST'])
 def payment_header_version():
-
-    # Lấy version từ header
     version = request.headers.get('API-Version', '1')
-
     # ===== Version 1 =====
     if version == '1':
-
         return jsonify({
             "version": "v1",
             "status": "success"
@@ -18,9 +14,7 @@ def payment_header_version():
 
     # ===== Version 2 =====
     elif version == '2':
-
         data = request.json
-
         return jsonify({
             "version": "v2",
             "transactionId": "tx_1001",
